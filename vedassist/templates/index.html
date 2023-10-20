@@ -22,11 +22,16 @@
 
 <body>
     <header>
-        <nav id="mainNavbar" class="navbar navbar-expand-md py-0 fixed-top">
+        <nav id="mainNavbar" class="navbar navbar-light bg-light navbar-expand-md py-0 fixed-top">
             <a class="navbar-brand" href="#">
                 <img src="../assests/logo.png" id="logo" class="d-inline-block align-top" alt="" loading="lazy">
             </a>
-            <div class="collapse navbar-collapse" id="navLinks">
+            <button id="hamburger" class="navbar-toggler" type="button" data-toggle="collapse"
+                data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav ml-auto">
                     <li class="nav-item">
                         <button id="button1" class="btn"><a href="">Home</a></button>
