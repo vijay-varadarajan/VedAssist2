@@ -1,0 +1,52 @@
+{% extends "vedassist/layout.html" %}
+{% load static %}
+
+{% block title %}
+    Vedassist
+{% endblock %}
+
+{% block body %}
+    <header>
+        <nav id="mainNavbar" class="navbar navbar-expand-md py-0 fixed-top">
+            <a class="navbar-brand" href="{% url 'index' %}">
+                <img src="{% static 'vedassist/assets/logo.png' %}" alt="logo" id="logo">
+            </a>
+            <div class="collapse navbar-collapse" id="navLinks">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item">
+                        <a id="links" href="" class="nav-link">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a id="links" href="" class="nav-link">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a id="links" href="" class="nav-link">Predict</a>
+                    </li>
+                    <li class="nav-item">
+                        <a id="links" href="" class="nav-link">Shop</a>
+                    </li>
+                    <li class="nav-item">
+                        <button id="button2" class="btn"><a href="">Log in</a></button>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    
+
+    <section class="container-fluid px-0">
+
+        <div class="row align-items-center">
+            <div id="headingGroup" class="col-lg-6 text-center mt-4">
+                <h1>Vedassist</h1>
+                <h3><b>Unlock the power of Ayurveda</b></h3>
+                <h4>Predict your perfect remedy, revolutionize your well-being</h4>
+                <button id="button3" class="btn"><a href="">Get Started</a></button>
+            </div>
+        </div>
+    </section>
+
+
+
+{% endblock %}
