@@ -7,7 +7,7 @@ Video demo:
 
 Github Repo link: [VedAssist-Source](https://github.com/vijay-varadarajan/VedAssist2/)
 
-![Home page image](readme_images\vedassist_home_design.png)
+<img src="readme_images\vedassist_home_design.png" alt="Home page image" width=420px height=200px>
 
 ## About this project
 
@@ -25,7 +25,7 @@ The project aims to **bridge the gap between Ayurveda and modern technology** by
 
 ### Predict Portal
 
-![Predictor portal image](readme_images\vedassist_predictor_design.png)
+<img src="readme_images\vedassist_predictor_design.png" alt="Home page image" width=420px height=200px>
 
 - The "Predict" portal in "VedAssist 2.0" is designed to assist users in identifying Ayurvedic medicines based on the symptoms they are experiencing. It utilizes a symptom-based recommendation system to provide personalized suggestions for users.
 
@@ -35,7 +35,7 @@ The project aims to **bridge the gap between Ayurveda and modern technology** by
 
 ### Shop Portal
 
-![Shop portal image](readme_images\vedassist_shop_design.png)
+<img src="readme_images\vedassist_shop_design.png" alt="Home page image" width=370px height=200px>
 
 - The "Shop" portal in "VedAssist 2.0" is designed to assist users in purchasing Ayurvedic medicines. This portal provides a virtual store where users can browse and purchase Ayurvedic medicines.
 
@@ -45,7 +45,7 @@ The project aims to **bridge the gap between Ayurveda and modern technology** by
 
 ### History page
 
-![History portal image](readme_images\vedassist_history_design.png)
+<img src="readme_images\vedassist_history_design.png" alt="Home page image" width=420px height=300px>
 
 - The "History" page in "VedAssist 2.0" displays a comprehensive list of all the transactions made by the user.
 
@@ -59,7 +59,7 @@ The project aims to **bridge the gap between Ayurveda and modern technology** by
 
 - Or, you may use the **navbar** to go to the desired page.
 
-![Navbar image](readme_images\vedassist_navbar_design.png)
+<img src="readme_images\vedassist_navbar_design.png" alt="Home page image" width=420px height=40px>
 
 - After logging in, you will be redirected to the **predict** page.
 
@@ -73,9 +73,10 @@ The project aims to **bridge the gap between Ayurveda and modern technology** by
 
 - Here, you can browse through the list of available medicines, read about them and click on **Buy** to purchase them.
 
+
 - Your **account balance** is displayed on the top right corner of the page.
 
-![Balance image](readme_images\vedassist_balance_design.png)
+<img src="readme_images\vedassist_balance_design.png" alt="Home page image" width=160px height=40px>
 
 - You can click on **+** to add money to your account.
 
