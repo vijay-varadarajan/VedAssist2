@@ -169,7 +169,7 @@ h1 {
     margin: 20px;
 
     border-radius: 25px;
-    width: 50%;
+    width: 55%;
     border-color: black;
     border-width: 3px;
     justify-content: center;
@@ -183,9 +183,9 @@ h1 {
 #password {
     align-items: center;
     margin: 20px;
-
+    margin-right: 1%;
     border-radius: 25px;
-    width: 50%;
+    width: 53%;
     border-color: black;
     border-width: 3px;
     justify-content: center;
@@ -195,6 +195,12 @@ h1 {
     display: block;
     padding-left: 10px;
 
+}
+
+#togglePassword {
+    cursor: pointer;
+    margin-top: 35px;
+    margin-left: 0%;
 }
 
 #loginbtn {
@@ -222,6 +228,23 @@ h1 {
 #loginbtn:hover {
     background-color: #00F418;
     color: black;
+    text-decoration: none;
+    font-size: 35px;
+}
+
+#createAccount {
+    color: var(--link-colour, #1B4DFF);
+    text-align: center;
+    font-family: Cabin;
+    font-size: 30px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    align-items: center;
+
+}
+
+#createAccount:hover {
     text-decoration: none;
     font-size: 35px;
 }
