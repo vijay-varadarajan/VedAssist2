@@ -15,7 +15,7 @@
         integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
 
     <!-- Custom CSS -->
-    <link rel="stylesheet" href="loginstyles.css">
+    <link rel="stylesheet" href="signupstyles.css">
     <title>Login</title>
 </head>
 
@@ -58,8 +58,14 @@
         <div class="row align-items-center">
             <div class="col-lg-3"></div>
             <div id="headingGroup" class="col-lg-6 text-center mt-5">
-                <h1>Login</h1>
-                <form action="/login">
+                <h1>Create Account</h1>
+                <form action="/signup">
+                    <div class="row">
+                        <div class="col"></div>
+                        <input type="text" name="name" placeholder="Name"
+                            class="form-control form-control-lg text-center" id="username">
+                        <div class="col"></div>
+                    </div>
                     <div class="row">
                         <div class="col"></div>
                         <input type="text" name="username" placeholder="Username"
@@ -76,7 +82,15 @@
                     </div>
                     <div class="row">
                         <div class="col"></div>
-                        <input type="submit" value="Login" class="btn btn-primary btn-lg text-center" id="loginbtn">
+                        <input type="password" name="confirmpassword" placeholder="Confirm Password"
+                            class="form-control form-control-lg text-center " id="password">
+                        <i class="fa fa-eye" id="togglePassword"></i>
+
+                        <div class="col"></div>
+                    </div>
+                    <div class="row">
+                        <div class="col"></div>
+                        <input type="submit" value="Create" class="btn btn-primary btn-lg text-center" id="loginbtn">
                         <div class="col"></div>
                     </div>
                 </form>
@@ -89,13 +103,13 @@
         <div class="row">
             <div class="col align-items-center text-center justify-content"></div>
             <div class="col text-center">
-                <a class="text-center" href="signup.html" id="createAccount">Create account</a>
+                <a class="text-center" href="login.html" id="createAccount">Login</a>
             </div>
             <div class="col"></div>
         </div>
     </div>
 
-    <script src="loginapp.js"></script>
+    <script src="signupapp.js"></script>
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
         integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
         crossorigin="anonymous"></script>
