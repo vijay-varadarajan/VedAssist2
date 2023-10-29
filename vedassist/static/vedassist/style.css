@@ -1,10 +1,20 @@
+/* HTML5 display-role reset for older browsers */
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+menu,
+
 section {
     display: block;
 }
 
 body {
     line-height: 1;
-    overflow-x: hidden;
 }
 
 ol,
@@ -40,19 +50,11 @@ nav {
     vertical-align: baseline;
 }
 
-.navbar-nav{
-    margin-right: 15px;
-}
-
-.nav-link{
-    font-size: 12px;
-}
-
 #links {
     color: #000;
     text-align: center;
     font-family: Cabin;
-    font-size: 22px;
+    font-size: 25px;
     font-style: normal;
     font-weight: 400;
     line-height: normal;
@@ -82,15 +84,15 @@ nav {
     border: 2px solid #000;
     background: #00F418;
     display: flex;
-    width: auto;
-    height: 45px;
+    width: 110px;
+    height: 50px;
     padding: 10px 18px;
     justify-content: center;
     align-items: center;
     gap: 10px;
     text-align: center;
     font-family: Cabin;
-    font-size: 22px;
+    font-size: 25px;
     font-style: normal;
     font-weight: 700;
     line-height: normal;
@@ -104,6 +106,19 @@ nav {
     color: black;
 }
 
+#button1 a:hover,
+#button2 a:hover {
+    text-decoration: none;
+    font-size: 30px;
+}
+
+#button3 a:hover,
+#button4 a:hover,
+#button5 a:hover {
+    text-decoration: none;
+    font-size: 25px;
+}
+
 #links:hover {
     color: #545353;
 }
@@ -111,7 +126,9 @@ nav {
 #logo {
     width: 50px;
     height: 50px;
-    margin: 10px 0px 5px 10px;
+    margin-left: 40px;
+    margin-top: 10px;
+
 }
 
 #mainNavbar {
@@ -140,10 +157,10 @@ h1 {
 h2 {
     color: #000;
     text-align: center;
-    font-family: Concert One;
-    font-size: 40px;
+    font-family: Content;
+    font-size: 48px;
     font-style: normal;
-    font-weight: 400;
+    font-weight: 700;
     line-height: normal;
     padding-top: 20px;
 
@@ -159,17 +176,11 @@ h3 {
     line-height: normal;
 }
 
-#predictor-body{
-    font-size: 28px;
-    font-family: Cabin;
-    margin: 15px 20px 20px 20px;
-}
-
 #button3 {
     display: flex;
-    width: auto;
+    width: 132px;
     height: 48px;
-    padding: 24px 20px;
+    padding: 24px 71px;
     justify-content: center;
     align-items: center;
     gap: 10px;
@@ -178,7 +189,7 @@ h3 {
     border: 3px solid #000;
     background: var(--Login-Register-btn-colour, #00F418);
     text-align: center;
-    margin: 30px auto;
+    margin: 0 auto
 }
 
 #button3 a,
@@ -207,25 +218,6 @@ h3 {
     transform: translate(-50%, -50%);
 }
 
-.row {
-    margin: 0 0 0 0;
-}
-
-.flex-row{
-    display: flex;
-    justify-content: center;
-    flex-direction: row;
-    align-items: center;
-}
-
-.left-box{
-    margin: 0px 20px 0px -10px;
-}
-
-.right-box{
-    margin-right: -10px;
-}
-
 .container2,
 .container3,
 .container4 {
@@ -234,7 +226,7 @@ h3 {
     border-radius: 50px;
     border: 3px solid #000;
     background: var(--Theme-colour, #6AFF8B);
-    padding: 0 10px 20px 10px !important;
+    padding-bottom: 20px;
 
     flex-shrink: 0;
 
@@ -242,17 +234,11 @@ h3 {
 
 .container2 h3 {
     color: #000;
-    font-family: Cabin;
-    font-size: 26px;
+    font-family: Content;
+    font-size: 33px;
     font-style: normal;
     font-weight: 400;
     line-height: normal;
-
-    margin: 0px 15px 10px 25px;
-}
-
-.mt-5{
-    padding: 0px;
 }
 
 #button4,
@@ -285,16 +271,8 @@ nav {
     padding-bottom: 10px;
 }
 
-nav-item{
-    margin-left: 10px;
-}
-
 #pad1 {
-    padding-left: 32px;
-}
-
-mt-5, .mt-5 {
-    margin-top: 1rem!important;
+    padding-left: 50px;
 }
 
 #footer_name {
@@ -352,45 +330,4 @@ mt-5, .mt-5 {
     font-size: 14px;
     color: #333;
     margin: 0;
-}
-
-.align-items-center {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.col-lg-6 {
-    -ms-flex: 0 0 70%;
-    flex: 0 0 90%;
-    max-width: 90%;
-}
-
-@media (min-width: 992px){    
-    .col-lg-6 {
-        -ms-flex: 0 0 70%;
-        flex: 0 0 auto;
-        width: 75%!important;
-    }
-}
-
-@media (min-width: 768px){
-    .navbar-expand-md .navbar-collapse {
-        display: flex!important;
-        flex-basis: auto;
-        flex-direction: row-reverse;
-        margin-right: 20px;
-    }
-}
-
-@media (max-width: 480px){
-    h1 {
-        font-size: 72px;
-    }
-}
-
-@media (max-width: 360px){
-    h1 {
-        font-size: 56px;
-    }
 }
