@@ -331,3 +331,8 @@ nav {
     color: #333;
     margin: 0;
 }
+
+#hamburger {
+    border-color: black;
+    color: black;
+}
