@@ -336,3 +336,25 @@ nav {
     border-color: black;
     color: black;
 }
+
+
+#devdiv {
+    border-radius: 30px;
+    border: 3px solid #000;
+    background: var(--Theme-colour, #6AFF8B);
+}
+
+#devnames {
+    color: #000;
+    text-align: center;
+    font-family: Dangrek;
+    font-size: 40px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+
+}
+
+#devdiv img {
+    margin: 10px;
+}
