@@ -120,7 +120,7 @@ pip install -r requirements.txt
 python manage.py runserver
 ```
 
-- Open the following link to view the web application:
+- Open the following link in your browser to view the web application:
 
 ```bash
 http://127.0.0.1:8000/
