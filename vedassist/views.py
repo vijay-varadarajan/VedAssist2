@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from django.http import HttpResponse
 from django.contrib.auth import authenticate, login, logout
 from django.db import IntegrityError
 from django.http import HttpResponse, HttpResponseRedirect
@@ -13,3 +14,24 @@ from django.core.mail import EmailMessage
 # Create your views here.
 def index(request):
     return render(request, "vedassist/index.html")
+
+def predict(request):
+    return render(request, "vedassist/predict.html")
+
+def shop(request):  
+    return render(request, "vedassist/shop.html")
+
+def login(request):
+    try:
+        username = request.GET['username']
+        password = request.GET['password']
+        # user = authenticate(username=n1, password=n2)
+        
+
+    except :
+        print("Login failed")
+        pass    
+    return render(request, "login.html")
+
+def register(request):
+    return render(request, "signup.html")
