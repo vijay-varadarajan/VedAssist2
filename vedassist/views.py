@@ -46,7 +46,7 @@ def login_view(request):
                     })
             except User.DoesNotExist:
                 return render(request, "vedassist/login.html", {
-                    "message": "Invalid username and/or password."
+                    "message": "Invalid username and/or password. User Dont Exist."
                 })
 
     # If user is not authenticated, return login page
@@ -65,8 +65,8 @@ def register_view(request):
         username = request.POST["username"]
         password = request.POST["password"]
         confirmation = request.POST["confirm_password"] 
-
-        print(username, password, confirmation)
+        email = request.POST["email"]
+        if email == "": email = username + "@example.com"
         
         if password != confirmation:
             return render(request, "vedassist/register.html", {
@@ -75,7 +75,7 @@ def register_view(request):
             
         # Attempt to create new user
         try:
-            user = User.objects.create_user(username=username, password=password, is_active=True) # type: ignore # create_user() returns a User object
+            user = User.objects.create_user(username=username, email = email ,password=password, is_active=True) # type: ignore # create_user() returns a User object
             user.save() # save user
             
         except IntegrityError:
