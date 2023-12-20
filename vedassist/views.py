@@ -33,5 +33,19 @@ def login(request):
         pass    
     return render(request, "login.html")
 
-def register(request):
+def signup(request):
+    try:
+        name = request.GET['name']
+        username = request.GET['username']
+        password = request.GET['password']
+        confpass = request.GET['confirmpassword']
+        if password == confpass:
+            str1 = "<h1>"+name+"</h1><br>" +"<h1>"+username+"</h1><br>" +"<h1>"+password+"</h1><br>" +"<h1>"+confpass+"</h1><br>" 
+            return HttpResponse(str1)
+        else:
+            return HttpResponse("Wrong lol")
+    except :
+        print("Register failed")
+        pass    
+        
     return render(request, "signup.html")
