@@ -89,7 +89,7 @@ import dj_database_url
 
 
 DATABASES = {
-    'default' : dj_database_url.parse(env('VEDASSISTDB_URL'))
+#    'default' : dj_database_url.parse(env('VEDASSISTDB_URL'))
 }
 
 
@@ -100,7 +100,7 @@ EMAIL_HOST_USER = env('EMAIL_HOST_USER')
 EMAIL_HOST_PASSWORD = env('EMAIL_HOST_PASSWORD')
 EMAIL_USE_TLS = env('EMAIL_USE_TLS')
 
-'''
+
 DATABASES = {
 
     "default": {
@@ -108,11 +108,12 @@ DATABASES = {
         "NAME": BASE_DIR / "db.sqlite3",
     }
 }
-'''
+
 
 # Custom user model
 # https://docs.djangoproject.com/en/4.1/topics/auth/customizing/#using-a-custom-user-model-when-starting-a-project
 
+AUTH_USER_MODEL = 'vedassist.User'
 
 # Password validation
 # https://docs.djangoproject.com/en/4.1/ref/settings/#auth-password-validators
