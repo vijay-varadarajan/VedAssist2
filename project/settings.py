@@ -89,7 +89,7 @@ import dj_database_url
 
 
 DATABASES = {
-#    'default' : dj_database_url.parse(env('VEDASSISTDB_URL'))
+    'default' : dj_database_url.parse(env('POSTGRES_URL'))
 }
 
 
@@ -101,13 +101,13 @@ EMAIL_HOST_PASSWORD = env('EMAIL_HOST_PASSWORD')
 EMAIL_USE_TLS = env('EMAIL_USE_TLS')
 
 
-DATABASES = {
-
-    "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
-    }
-}
+#DATABASES = {
+#
+#    "default": {
+#        "ENGINE": "django.db.backends.sqlite3",
+#        "NAME": BASE_DIR / "db.sqlite3",
+#    }
+#}
 
 
 # Custom user model

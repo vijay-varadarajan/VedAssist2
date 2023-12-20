@@ -66,6 +66,7 @@ def register_view(request):
         password = request.POST["password"]
         confirmation = request.POST["confirm_password"] 
         email = request.POST["email"]
+        
         if email == "": email = username + "@example.com"
         
         if password != confirmation:
@@ -75,7 +76,7 @@ def register_view(request):
             
         # Attempt to create new user
         try:
-            user = User.objects.create_user(username=username, email = email ,password=password, is_active=True) # type: ignore # create_user() returns a User object
+            user = User.objects.create_user(username=username, email=email ,password=password, is_active=True) # type: ignore # create_user() returns a User object
             user.save() # save user
             
         except IntegrityError:

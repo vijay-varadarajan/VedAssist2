@@ -3,9 +3,9 @@ from django.db import models
 
 # Register your models here.
 class User(AbstractUser):
-    username = models.CharField(max_length=64, unique=True)
-    email = models.EmailField(max_length=254, unique=True)
-    password = models.CharField(max_length=64)
+    username = models.CharField(max_length=256, unique=True)
+    email = models.EmailField(max_length=256, unique=True)
+    password = models.CharField(max_length=256)
     balance = models.FloatField(default=100.00)
 
     def __str__(self) -> str:
