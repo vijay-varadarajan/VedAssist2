@@ -1,0 +1,75 @@
+{% extends "vedassist/layout.html" %}
+{% load static %}
+
+{% block title %}
+    Vedassist
+{% endblock %}
+
+{% block body %}
+
+    {% if messages %}
+        {% for message in messages %}
+            <div>
+                {{ message }}
+            </div>
+        {% endfor %}
+    {% endif %}
+    {{ message }}
+
+    <h1>Predict</h1>
+
+    <p>Enter your symptoms below:</p>
+    <form action="{% url 'predict' %}" method="post">
+        {% csrf_token %}
+
+        <label for="cold">Cold</label>
+        <input type="checkbox" name="cold" id="cold">
+
+        <label for="eyepain">Eyepain</label>
+        <input type="checkbox" name="eyepain" id="eyepain">
+
+        <label for="fever">Fever</label>
+        <input type="checkbox" name="fever" id="fever">
+        
+        <label for="headache">Headache</label>
+        <input type="checkbox" name="headache" id="headache">
+
+        <label for="stomachache">stomachache</label>
+        <input type="checkbox" name="stomachache" id="stomachache">
+
+        <label for="dizziness">dizziness</label>
+        <input type="checkbox" name="dizziness" id="dizziness">
+        
+        <label for="vomiting">vomiting</label>
+        <input type="checkbox" name="vomiting" id="vomiting">
+        
+        <label for="chestpain">chestpain</label>
+        <input type="checkbox" name="chestpain" id="chestpain">
+
+        <label for="jointpain">jointpain</label>
+        <input type="checkbox" name="jointpain" id="jointpain">
+        
+        <label for="diarrhoea">diarrhoea</label>
+        <input type="checkbox" name="diarrhoea" id="diarrhoea">
+        
+        <label for="throatinfection">throatinfection</label>
+        <input type="checkbox" name="throatinfection" id="throatinfection">
+
+        <label for="age">age</label>
+        <input type="number" name="age" id="age" required>
+        
+        <label for="gender">gender</label>
+        <select class="cold_b" name="gender">
+            <option value="3">Male</option>
+            <option value="4">Female</option>
+        </select>
+        
+        <label for="weight">weight</label>
+        <input type="number" name="weight" id="weight" required>
+        
+        <input type="submit" value="Submit">
+    </form>
+
+    {{result}}
+
+{% endblock %}

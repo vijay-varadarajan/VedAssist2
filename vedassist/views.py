@@ -18,6 +18,8 @@ from .tokens import account_activation_token
 
 from .models import User, Medicine, Transaction
 
+from .predictor import model_predict
+
 # Create your views here.
 def index(request):
     return render(request, "vedassist/index.html")
@@ -140,6 +142,32 @@ def activate(request, uidb64, token):
     
 
 def predict_view(request):
+    if request.method == "POST":
+        
+        user_input = [
+        1 if request.POST.get('cold') == 'on' else 0 ,
+        1 if request.POST.get('eyepain') == 'on' else 0,
+        1 if request.POST.get('fever') == 'on' else 0,
+        1 if request.POST.get('headache') == 'on' else 0,
+        1 if request.POST.get('stomachache') == 'on' else 0,
+        1 if request.POST.get('dizziness') == 'on' else 0,
+        1 if request.POST.get('vomiting') == 'on' else 0,
+        1 if request.POST.get('chestpain') == 'on' else 0,
+        1 if request.POST.get('jointpain') == 'on' else 0,
+        1 if request.POST.get('loosemotion') == 'on' else 0,
+        1 if request.POST.get('throatinfection') == 'on' else 0,
+        int(request.POST.get('age')),
+        int(request.POST.get('gender')),
+        int(request.POST.get('weight'))
+    ]
+    
+        medicines = model_predict(str(user_input).lstrip('[').rstrip(']'))
+        print(medicines)
+        
+        return render(request, "vedassist/predict.html", {
+            "result": medicines
+        })
+        
     return render(request, "vedassist/predict.html")
 
 
