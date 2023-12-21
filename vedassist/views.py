@@ -11,6 +11,10 @@ from django.contrib.sites.shortcuts import get_current_site
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.utils.encoding import force_bytes, force_str
 from django.core.mail import EmailMessage
+from django.contrib import messages
+from django.template.loader import render_to_string
+
+from .tokens import account_activation_token
 
 from .models import User, Medicine, Transaction
 
@@ -37,6 +41,11 @@ def login_view(request):
         else:
             try:
                 user = User.objects.get(username=username)
+                
+                if not user.is_active:
+                    messages.error(request, "Account not activated, check your email for activation link.")
+                    return HttpResponseRedirect(reverse("login_view"))
+                
                 if check_password(password, user.password):
                     login(request, user)
                     return HttpResponseRedirect(reverse("index"))
@@ -76,7 +85,7 @@ def register_view(request):
             
         # Attempt to create new user
         try:
-            user = User.objects.create_user(username=username, email=email ,password=password, is_active=True) # type: ignore # create_user() returns a User object
+            user = User.objects.create_user(username=username, email=email ,password=password, is_active=False) # type: ignore # create_user() returns a User object
             user.save() # save user
             
         except IntegrityError:
@@ -84,11 +93,50 @@ def register_view(request):
                 "message": "Username already taken."
             })
         
+        activateEmail(request, user, email)
+        
         # Return to login page with message
-        return render(request, "vedassist/login.html")
+        messages.success(request, "Account created successfully! Check your email for activation link.")
+        return HttpResponseRedirect(reverse("login"))
+
     # If user is not authenticated, return register page
     else:
         return render(request, "vedassist/register.html")
+    
+
+def activateEmail(request, user, to_email):
+    mail_subject = 'Activate your account.'
+    message = render_to_string('vedassist/activate_email.html', {
+        'user': user.username, 
+        'domain': get_current_site(request).domain,
+        'uid': urlsafe_base64_encode(force_bytes(user.pk)),
+        'token': account_activation_token.make_token(user),
+        'protocol': 'https' if request.is_secure() else 'http',
+    })
+
+    email = EmailMessage(mail_subject, message, to=[to_email])
+    if email.send():
+        print("Email sent")
+    else:
+        print("Error sending Email")
+
+
+def activate(request, uidb64, token):
+    try:
+        user = User.objects.get(pk=force_str(urlsafe_base64_decode(uidb64)))
+    except:
+        user = None
+
+    if user is not None and account_activation_token.check_token(user, token):
+        user.is_active = True
+        user.save()
+
+        messages.success(request, "Account activated successfully!")
+        return HttpResponseRedirect(reverse("login"))
+    
+    messages.error(request, "Activation link expired!")
+    return HttpResponseRedirect(reverse("login"))
+
     
 
 def predict_view(request):

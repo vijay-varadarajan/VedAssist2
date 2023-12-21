@@ -7,7 +7,15 @@
 
 {% block body %}
 
+    {% if messages %}
+        {% for message in messages %}
+            <div>
+                {{ message }}
+            </div>
+        {% endfor %}
+    {% endif %}
     {{ message }}
+    
     <form action="{% url 'register' %}" method="post">
         {% csrf_token %}
         <div class="container">
