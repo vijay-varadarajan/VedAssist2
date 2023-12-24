@@ -1,0 +1,31 @@
+{% extends "vedassist/layout.html" %}
+{% load static %}
+
+{% block title %}
+    Vedassist
+{% endblock %}
+
+{% block body %}
+
+    {% if messages %}
+        {% for message in messages %}
+            <div>
+                {{ message }}
+            </div>
+        {% endfor %}
+    {% endif %}
+    {{ message }}
+
+    <h1>History</h1>
+
+    {% for transaction in transactions %}
+        <p>{{ transaction.transaction_id }}</p>
+        <p>{{ transaction.medicine.medicine_name }}</p>
+        <p>{{ transaction.medicine.medicine_price }}</p>
+        <p>{{ transaction.transaction_date }}</p>
+
+        <br>
+        <hr>
+    {% endfor %}
+
+{% endblock %}

@@ -1,0 +1,36 @@
+{% extends "vedassist/layout.html" %}
+{% load static %}
+
+{% block title %}
+    Vedassist
+{% endblock %}
+
+{% block body %}
+
+    {% if messages %}
+        {% for message in messages %}
+            <div>
+                {{ message }}
+            </div>
+        {% endfor %}
+    {% endif %}
+    {{ message }}
+
+    
+    <h1>Shop</h1>
+    
+    <a href="{% url 'history' %}"><button>HISTORY</button></a>
+    <p>Choose your medicine below:</p>
+
+    {% for item in items %}
+            <p>{{ item.medicine_name }}</p>
+            <p>{{ item.medicine_description }}</p>
+            <img src="{{ item.medicine_image }}">
+            <p>{{ item.medicine_price }}</p>
+            <a href="{% url 'buy' medicine_name=item.medicine_name %}">Buy</a>
+            <br>
+        <hr>
+    {% endfor %}
+
+
+{% endblock %}

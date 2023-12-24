@@ -13,6 +13,7 @@ from django.utils.encoding import force_bytes, force_str
 from django.core.mail import EmailMessage
 from django.contrib import messages
 from django.template.loader import render_to_string
+import joblib, pandas as pd
 
 from .tokens import account_activation_token
 
@@ -20,7 +21,9 @@ from .models import User, Medicine, Transaction
 
 # Create your views here.
 def index(request):
-    return render(request, "vedassist/index.html")
+    return render(request, "vedassist/index.html", {
+        "user": request.user, 
+    })
 
 def login_view(request):
     if request.method == "POST":
@@ -72,10 +75,10 @@ def register_view(request):
     if request.method == "POST":
         # Get form input values
         username = request.POST["username"]
+        email = request.POST["email"]
         password = request.POST["password"]
         confirmation = request.POST["confirm_password"] 
-        email = request.POST["email"]
-        
+        print("Confirmed")
         if email == "": email = username + "@example.com"
         
         if password != confirmation:
@@ -161,6 +164,7 @@ def predict_view(request):
     
         medicines = model_predict(str(user_input).lstrip('[').rstrip(']'))
         print(medicines)
+        print(type(medicines))
         
         return render(request, "vedassist/predict.html", {
             "result": medicines
@@ -169,17 +173,11 @@ def predict_view(request):
     return render(request, "vedassist/predict.html")
 
 
-import pandas as pd
-import pickle
-import joblib
-import os
-
-
-
 def model_predict(user_input):
+
+    classifier = joblib.load('vedassist/model.pkl')
     
-    classifier = joblib.load("vedassist/model.pkl")
-    
+    # sourcery skip: inline-immediately-returned-variable
     user_input = user_input.split(',')
     user_data = pd.DataFrame({ 
             'Cold': [user_input[0]],
@@ -201,6 +199,50 @@ def model_predict(user_input):
     return prediction
 
 
-
 def shop_view(request):
-    return render(request, "vedassist/shop.html")
+    
+    # retrieve medicine name from medicines table
+    items = Medicine.objects.all()
+    
+    return render(request, "vedassist/shop.html", {
+        "items": items,
+    })
+
+import datetime, random
+
+@login_required(login_url='/login')
+def buy_view(request, medicine_name):
+    
+    if request.method == "POST":
+        
+        item = Medicine.objects.get(medicine_name=medicine_name)
+        user = request.user
+        transaction_id = f"{datetime.datetime.now()}{item.medicine_name}{item.medicine_price}{random.randint(1000, 9999)}"
+        
+        Transaction.objects.create(
+            user=user,
+            medicine=item,
+            transaction_id=transaction_id,
+            transaction_amount=item.medicine_price,
+            transaction_status=True
+        )
+        
+        item.medicine_view_count += 1
+        item.save()  # Save the changes to the item object
+        
+        return HttpResponseRedirect(reverse('shop'))
+        
+    else:
+        item = Medicine.objects.get(medicine_name=medicine_name)
+        return render(request, "vedassist/buy.html", {
+            "item": item,
+        })    
+ 
+ 
+def history_view(request):
+    
+    transactions = Transaction.objects.filter(user = request.user)
+    
+    return render(request, "vedassist/history.html", {
+        "transactions": transactions,
+    })

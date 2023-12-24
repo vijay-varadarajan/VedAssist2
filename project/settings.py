@@ -30,13 +30,17 @@ SECRET_KEY = env('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
-
-ALLOWED_HOSTS = ['*']
-
+ALLOWED_HOSTS=['*']
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:3000",
+]
+# CORS_ALLOW_ALL_ORIGINS=True
 
 # Application definition
 
 INSTALLED_APPS = [
+    'corsheaders',
+    'crispy_forms',
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
@@ -44,6 +48,8 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
 ]
+# CRISPY_TEMPLATE_PACK = 'bootstrap4'
+
 
 ADDED_APPS = [
     'vedassist',
@@ -52,6 +58,7 @@ ADDED_APPS = [
 INSTALLED_APPS += ADDED_APPS
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware', 
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
@@ -61,6 +68,45 @@ MIDDLEWARE = [
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
 
+# CSRF_TRUSTED_ORIGINS = ["http://localhost:3000/", ]
+
+# CORS_ALLOWED_ORIGINS = [
+#     "http://localhost:3000",
+# ]
+# CORS_ALLOWED_ORIGINS = [
+#     "http://192.168.55.104:3000",
+# ]
+
+# Optional: Allow credentials (cookies, authorization headers, etc.)
+# CORS_ALLOW_CREDENTIALS = False
+
+# CORS_ORIGIN_WHITELIST = (
+#     'http://localhost:3000',
+# )
+
+CORS_ALLOW_METHODS = [
+    'DELETE',
+    'GET',
+    'OPTIONS',
+    'PATCH',
+    'POST',
+    'PUT',
+]
+
+CORS_ALLOW_HEADERS = [
+    'accept',
+    'accept-encoding',
+    'authorization',
+    'content-type',
+    'dnt',
+    'origin',
+    'user-agent',
+    'x-csrftoken',
+    'x-requested-with',
+]
+
+
+APPEND_SLASH = False
 ROOT_URLCONF = "project.urls"
 
 TEMPLATES = [

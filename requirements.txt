@@ -11,4 +11,3 @@ sqlparse
 typing_extensions
 tzdata
 psycopg2-binary
-scikit-learn==1.2.2

@@ -1,0 +1,31 @@
+{% extends "vedassist/layout.html" %}
+{% load static %}
+
+{% block title %}
+    Vedassist
+{% endblock %}
+
+{% block body %}
+
+    {% if messages %}
+        {% for message in messages %}
+            <div>
+                {{ message }}
+            </div>
+        {% endfor %}
+    {% endif %}
+    {{ message }}
+
+    <h1>Buy</h1>
+
+    <p>{{ item.medicine_name }}</p>
+    <p>{{ item.medicine_description }}</p>
+    <img src="{{ item.medicine_image }}">
+    <p>{{ item.medicine_price }}</p>
+
+    <form method="post" action="">
+        {% csrf_token %}
+        <input type="Submit" value="Purchase">
+    </form>
+
+{% endblock %}
