@@ -11,3 +11,7 @@ sqlparse
 typing_extensions
 tzdata
 psycopg2-binary
+django-cors-headers
+django-crispy-forms
+joblib
+pandas

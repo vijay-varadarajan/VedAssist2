@@ -227,14 +227,27 @@ def model_predict(user_input):
     return prediction
 
 
+@csrf_exempt
 def shop_view(request):
     
     # retrieve medicine name from medicines table
     items = Medicine.objects.all()
     
-    return render(request, "vedassist/shop.html", {
-        "items": items,
-    })
+    medicines = []
+    
+    for item in items:
+        medicines.append({
+                            "name": item.medicine_name,
+                            "description": item.medicine_description,
+                            "price": item.medicine_price, 
+                        })
+        
+    
+    return JsonResponse({
+                "medicines" : medicines,
+            }, status=200)
+
+
 
 import datetime, random
 
