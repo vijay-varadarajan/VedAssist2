@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from django.contrib.auth import authenticate, login, logout
 from django.db import IntegrityError
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
 from django.shortcuts import render
 from django.urls import reverse
 from django.contrib.auth.decorators import login_required
@@ -13,6 +13,7 @@ from django.utils.encoding import force_bytes, force_str
 from django.core.mail import EmailMessage
 from django.contrib import messages
 from django.template.loader import render_to_string
+from django.views.decorators.csrf import csrf_exempt
 import joblib, pandas as pd
 
 from .tokens import account_activation_token
@@ -141,7 +142,7 @@ def activate(request, uidb64, token):
     return HttpResponseRedirect(reverse("login"))
 
     
-
+@csrf_exempt
 def predict_view(request):
     if request.method == "POST":
         
@@ -163,12 +164,39 @@ def predict_view(request):
     ]
     
         medicines = model_predict(str(user_input).lstrip('[').rstrip(']'))
-        print(medicines)
-        print(type(medicines))
         
-        return render(request, "vedassist/predict.html", {
-            "result": medicines
-        })
+        # convert numpy 2d array to list
+        medicines = medicines.tolist()
+        medicines = medicines[0]
+        
+        # get medicine details from database
+        medicines = [medicine.strip() for medicine in medicines]
+        medicine_details = Medicine.objects.filter(medicine_name__in=medicines)
+        
+        print(medicines)
+        print(medicine_details)
+        
+        return JsonResponse({
+                "medicines" : [
+                    
+                        {
+                            "name": medicine_details[0].medicine_name,
+                            "description": medicine_details[0].medicine_description,
+                            "price": medicine_details[0].medicine_price, 
+                        }, 
+                        {
+                            "name": medicine_details[0].medicine_name,
+                            "description": medicine_details[0].medicine_description,
+                            "price": medicine_details[0].medicine_price,
+                        },
+                        {
+                            "name": medicine_details[0].medicine_name,
+                            "description": medicine_details[0].medicine_description,
+                            "price": medicine_details[0].medicine_price,
+                        }
+                    
+                ]
+            }, status=200)
         
     return render(request, "vedassist/predict.html")
 
