@@ -12,6 +12,7 @@ urlpatterns = [
     path("logout", views.logout_view, name='logout'),
     path("predict", views.predict_view, name='predict'),
     path("shop", views.shop_view, name='shop'),
+    path("shop/search", views.search_view, name='search'),
     path("buy/<medicine_name>/", views.buy_view, name='buy'),
     path("history", views.history_view, name='history'),
 ]

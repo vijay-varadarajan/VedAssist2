@@ -25,7 +25,7 @@ def index(request):
     return render(request, "vedassist/index.html", {
         "user": request.user, 
     })
-
+@csrf_exempt
 def login_view(request):
     if request.method == "POST":
         # Attempt to sign user in
@@ -71,7 +71,7 @@ def logout_view(request):
     logout(request)
     return HttpResponseRedirect(reverse("index"))
 
-
+@csrf_exempt
 def register_view(request):
     if request.method == "POST":
         # Get form input values
@@ -223,7 +223,7 @@ def predict_view(request):
         
     return render(request, "vedassist/predict.html")
 
-
+@csrf_exempt
 def model_predict(user_input):
 
     classifier = joblib.load('vedassist/model.pkl')
@@ -270,11 +270,39 @@ def shop_view(request):
                 "medicines" : medicines,
             }, status=200)
 
+@csrf_exempt
+def search_view(request):
+    if request.method == "POST":
+        data = request.POST
+        searchText = data.get('searchText')
+        searchText = searchText.capitalize()
+        print(searchText)
+        items = Medicine.objects.filter(medicine_name = searchText)
+        
+    print(items) 
+    medicines = []   
+    if items != []:
+        for item in items:
+            print(item)
+            medicines.append({
+                                "name": item.medicine_name,
+                                "description": item.medicine_description,
+                                "price": item.medicine_price, 
+                            })
+    else:
+        pass        
+
+        
+    
+    return JsonResponse({
+                "medicines" : medicines,
+            }, status=200)
 
 
 import datetime, random
 
 @login_required(login_url='/login')
+@csrf_exempt
 def buy_view(request, medicine_name):
     
     if request.method == "POST":
