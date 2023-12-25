@@ -272,12 +272,15 @@ def shop_view(request):
 
 @csrf_exempt
 def search_view(request):
+    searchText = ""
+    
     if request.method == "POST":
         data = request.POST
         searchText = data.get('searchText')
         searchText = searchText.capitalize()
         print(searchText)
-        items = Medicine.objects.filter(medicine_name = searchText)
+    
+    items = Medicine.objects.filter(medicine_name = searchText)
         
     print(items) 
     medicines = []   
