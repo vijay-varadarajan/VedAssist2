@@ -171,30 +171,53 @@ def predict_view(request):
         
         # get medicine details from database
         medicines = [medicine.strip() for medicine in medicines]
-        medicine_details = Medicine.objects.filter(medicine_name__in=medicines)
-        
         print(medicines)
+        
+        medicine_details = Medicine.objects.filter(medicine_name__in=medicines)
         print(medicine_details)
         
-        return JsonResponse({
+        if len(medicine_details) == 2:
+            
+            return JsonResponse({
                 "medicines" : [
                     
                         {
                             "name": medicine_details[0].medicine_name,
                             "description": medicine_details[0].medicine_description,
-                            "price": medicine_details[0].medicine_price, 
+                            "price": medicine_details[0].medicine_price,
+                            "image": medicine_details[0].medicine_image.url, 
                         }, 
                         {
-                            "name": medicine_details[0].medicine_name,
-                            "description": medicine_details[0].medicine_description,
-                            "price": medicine_details[0].medicine_price,
-                        },
+                            "name": medicine_details[1].medicine_name,
+                            "description": medicine_details[1].medicine_description,
+                            "price": medicine_details[1].medicine_price,
+                            "image": medicine_details[1].medicine_image.url,
+                        }
+                ]
+            }, status=200)
+            
+        else:
+            return JsonResponse({
+                "medicines" : [
+                    
                         {
                             "name": medicine_details[0].medicine_name,
                             "description": medicine_details[0].medicine_description,
                             "price": medicine_details[0].medicine_price,
+                            "image": medicine_details[0].medicine_image.url, 
+                        }, 
+                        {
+                            "name": medicine_details[1].medicine_name,
+                            "description": medicine_details[1].medicine_description,
+                            "price": medicine_details[1].medicine_price,
+                            "image": medicine_details[1].medicine_image.url,
+                        },
+                        {
+                            "name": medicine_details[2].medicine_name,
+                            "description": medicine_details[2].medicine_description,
+                            "price": medicine_details[2].medicine_price,
+                            "image": medicine_details[2].medicine_image.url,
                         }
-                    
                 ]
             }, status=200)
         
