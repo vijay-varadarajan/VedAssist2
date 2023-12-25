@@ -277,7 +277,7 @@ def search_view(request):
         searchText = data.get('searchText')
         searchText = searchText.capitalize()
         print(searchText)
-        items = Medicine.objects.filter(medicine_name = searchText)
+        items = Medicine.objects.filter(medicine_name__icontains = searchText)
         
     print(items) 
     medicines = []   
