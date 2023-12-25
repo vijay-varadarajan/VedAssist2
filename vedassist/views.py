@@ -272,6 +272,8 @@ def shop_view(request):
 
 @csrf_exempt
 def search_view(request):
+    searchText = ""
+    
     if request.method == "POST":
         data = request.POST
         searchText = data.get('searchText')
