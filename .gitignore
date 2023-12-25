@@ -1,2 +1,2 @@
-/project/__pycache__
-/vedassist/__pycache__
+./project/__pycache__/*
+./vedassist/__pycache__/*
