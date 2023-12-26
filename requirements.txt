@@ -15,3 +15,4 @@ django-cors-headers
 django-crispy-forms
 joblib
 pandas
+scikit-learn==1.2.2
