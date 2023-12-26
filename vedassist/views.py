@@ -80,12 +80,9 @@ def register_view(request):
         password = request.POST["password"]
         confirmation = request.POST["confirm_password"] 
         print("Confirmed")
-        if email == "": email = username + "@example.com"
         
         if password != confirmation:
-            return render(request, "vedassist/register.html", {
-                "message": "Passwords must match."
-            })
+            return JsonResponse({"message": "Password mismatch"} , status = 440)
             
         # Attempt to create new user
         try:
@@ -93,19 +90,16 @@ def register_view(request):
             user.save() # save user
             
         except IntegrityError:
-            return render(request, "vedassist/register.html", {
-                "message": "Username already taken."
-            })
+            return JsonResponse({"message" : "User already exist"} , status = 440)
         
         activateEmail(request, user, email)
         
         # Return to login page with message
-        messages.success(request, "Account created successfully! Check your email for activation link.")
-        return HttpResponseRedirect(reverse("login"))
+        return JsonResponse({"message" : "Account created successfully! Check your email for activation link."}, status = 200)
 
     # If user is not authenticated, return register page
     else:
-        return render(request, "vedassist/register.html")
+        return JsonResponse(status = 490)
     
 
 def activateEmail(request, user, to_email):
