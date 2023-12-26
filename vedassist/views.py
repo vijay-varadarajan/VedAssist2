@@ -88,11 +88,11 @@ def register_view(request):
         try:
             user = User.objects.create_user(username=username, email=email ,password=password, is_active=False) # type: ignore # create_user() returns a User object
             user.save() # save user
+            activateEmail(request, user, email)
             
         except IntegrityError:
             return JsonResponse({"message" : "User already exist"} , status = 440)
         
-        activateEmail(request, user, email)
         
         # Return to login page with message
         return JsonResponse({"message" : "Account created successfully! Check your email for activation link."}, status = 200)
