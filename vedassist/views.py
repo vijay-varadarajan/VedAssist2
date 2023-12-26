@@ -19,12 +19,19 @@ from django.contrib.auth.models import User
 from django.contrib.auth.tokens import default_token_generator
 from django.utils.encoding import force_bytes
 from django.utils.http import urlsafe_base64_encode
-
+import secrets
 from .tokens import account_activation_token
 
 from .models import User, Medicine, Transaction
 
 # Create your views here.
+
+
+@csrf_exempt
+def get_session_token(request):
+    if request.method == "POST":
+        return secrets.token_hex(16)
+        
 def index(request):
     return render(request, "vedassist/index.html", {
         "user": request.user, 
