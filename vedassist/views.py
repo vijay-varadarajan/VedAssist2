@@ -15,6 +15,10 @@ from django.contrib import messages
 from django.template.loader import render_to_string
 from django.views.decorators.csrf import csrf_exempt
 import joblib, pandas as pd
+from django.contrib.auth.models import User
+from django.contrib.auth.tokens import default_token_generator
+from django.utils.encoding import force_bytes
+from django.utils.http import urlsafe_base64_encode
 
 from .tokens import account_activation_token
 
@@ -39,32 +43,24 @@ def login_view(request):
         print(user)
         # If user is authenticated, login and route to index
         if user is not None:
-            login(request, user)
-            return HttpResponseRedirect(reverse("index"))
+            user_token = generate_token_for_user(username)
+            return JsonResponse({"token": user_token} , status = 200)
         # Else, return login page again with error message
         else:
             try:
                 user = User.objects.get(username=username)
                 
                 if not user.is_active:
-                    messages.error(request, "Account not activated, check your email for activation link.")
-                    return HttpResponseRedirect(reverse("login_view"))
+                    return JsonResponse({"message": "Account not activated, check your email for activation link."} , status = 440)
                 
-                if check_password(password, user.password):
-                    login(request, user)
-                    return HttpResponseRedirect(reverse("index"))
-                else:
-                    return render(request, "vedassist/login.html", {
-                        "message": "Invalid username and/or password."
-                    })
+                if not check_password(password, user.password):
+                    return JsonResponse({"message" : "Password is Incorrect"} , status = 441)
+                
             except User.DoesNotExist:
-                return render(request, "vedassist/login.html", {
-                    "message": "Invalid username and/or password. User Dont Exist."
-                })
+                return JsonResponse({"message" : "User Doesnt Exist"} , status = 442)
 
-    # If user is not authenticated, return login page
-    else:
-        return render(request, "vedassist/login.html")
+  
+        
     
 
 def logout_view(request):
@@ -82,17 +78,18 @@ def register_view(request):
         print("Confirmed")
         
         if password != confirmation:
-            return JsonResponse({"message": "Password mismatch"} , status = 440)
+            return JsonResponse({"message": "Password mismatch"} , status = 443)
             
         # Attempt to create new user
         try:
             user = User.objects.create_user(username=username, email=email ,password=password, is_active=False) # type: ignore # create_user() returns a User object
             user.save() # save user
-            activateEmail(request, user, email)
+            
             
         except IntegrityError:
-            return JsonResponse({"message" : "User already exist"} , status = 440)
+            return JsonResponse({"message" : "User already exist"} , status = 444)
         
+        activateEmail(request, user, email)
         
         # Return to login page with message
         return JsonResponse({"message" : "Account created successfully! Check your email for activation link."}, status = 200)
@@ -334,3 +331,7 @@ def history_view(request):
     return render(request, "vedassist/history.html", {
         "transactions": transactions,
     })
+def generate_token_for_user(username):
+    user = User.objects.get(username=username)
+    token = default_token_generator.make_token(user)
+    return token
