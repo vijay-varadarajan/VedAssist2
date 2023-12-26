@@ -82,21 +82,23 @@ def register_view(request):
             
         # Attempt to create new user
         try:
-            user = User.objects.create_user(username=username, email=email ,password=password, is_active=False) # type: ignore # create_user() returns a User object
-            user.save() # save user
+             # type: ignore # create_user() returns a User object
+            try:
+                activateEmail(request, user, email)
+                user = User.objects.create_user(username=username, email=email ,password=password, is_active=False)     
+                user.save() # save user
+                
+                return JsonResponse({"message" : "Account created successfully! Check your email for activation link."}, status = 200)
+            except ValueError:
+                return JsonResponse({"message" : "Invalid Mail Id."}, status = 445)
+        
             
             
         except IntegrityError:
             return JsonResponse({"message" : "User already exist"} , status = 444)
         
-        activateEmail(request, user, email)
+            
         
-        # Return to login page with message
-        return JsonResponse({"message" : "Account created successfully! Check your email for activation link."}, status = 200)
-
-    # If user is not authenticated, return register page
-    else:
-        return JsonResponse(status = 490)
     
 
 def activateEmail(request, user, to_email):
@@ -111,9 +113,9 @@ def activateEmail(request, user, to_email):
 
     email = EmailMessage(mail_subject, message, to=[to_email])
     if email.send():
-        print("Email sent")
+        return 1
     else:
-        print("Error sending Email")
+        return None
 
 
 def activate(request, uidb64, token):
