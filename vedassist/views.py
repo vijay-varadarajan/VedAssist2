@@ -93,6 +93,7 @@ def register_view(request):
                 
                 return JsonResponse({"message" : "Account created successfully! Check your email for activation link."}, status = 200)
             except ValueError:
+                user.delete() # delete user
                 return JsonResponse({"message" : "Invalid Mail Id."}, status = 445)
         
             
