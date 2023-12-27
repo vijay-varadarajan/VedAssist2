@@ -86,9 +86,10 @@ def register_view(request):
         # Attempt to create new user
         try:
              # type: ignore # create_user() returns a User object
+            user = User.objects.create_user(username=username, email=email ,password=password, is_active=False)     
             try:
                 activateEmail(request, user, email)
-                user = User.objects.create_user(username=username, email=email ,password=password, is_active=False)     
+                
                 user.save() # save user
                 
                 return JsonResponse({"message" : "Account created successfully! Check your email for activation link."}, status = 200)
