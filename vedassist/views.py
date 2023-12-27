@@ -47,7 +47,7 @@ def login_view(request):
         # If user is authenticated, login and route to index
         if user is not None:
             user_token = generate_token_for_user(username)
-            return JsonResponse({"token": user_token} , status = 200)
+            return JsonResponse({"token": user_token, "uname": username} , status = 200)
         # Else, return login page again with error message
         else:
             try:
@@ -302,20 +302,23 @@ def search_view(request):
 
 import datetime, random
 
-@login_required(login_url='/login')
 @csrf_exempt
-def buy_view(request, medicine_name):
+def buy_view(request):
     
     if request.method == "POST":
+        data = request.POST
         
-        item = Medicine.objects.get(medicine_name=medicine_name)
-        user = request.user
+        print(data.get('uname'))
+        
+        item = Medicine.objects.get(medicine_name=data.get('prodName'))
+        user = User.objects.get(username=data.get('uname'))
+        
         transaction_id = f"{datetime.datetime.now()}{item.medicine_name}{item.medicine_price}{random.randint(1000, 9999)}"
         
-        door_no = request.POST.get('door_no')
-        street = request.POST.get('street')
-        city = request.POST.get('city')
-        pincode = request.POST.get('pincode')
+        door_no = data.get('doorNo')
+        street = data.get('street')
+        city = data.get('city')
+        pincode = data.get('pincode')
         
         Transaction.objects.create(
             user=user,
@@ -332,14 +335,8 @@ def buy_view(request, medicine_name):
         item.medicine_view_count += 1
         item.save()  # Save the changes to the item object
         
-        return HttpResponseRedirect(reverse('shop'))
-        
-    else:
-        item = Medicine.objects.get(medicine_name=medicine_name)
-        return render(request, "vedassist/buy.html", {
-            "item": item,
-        })    
- 
+        return JsonResponse({'message': 'Order confirmed!'}, status=200)
+
  
 def history_view(request):
     

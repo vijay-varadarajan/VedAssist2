@@ -30,10 +30,10 @@ class Transaction(models.Model):
     transaction_amount = models.FloatField(default=0)
     transaction_status = models.BooleanField(default=False)
     transaction_date = models.DateTimeField(auto_now_add=True)
-    door_no = models.CharField(max_length=100)
-    street = models.CharField(max_length=100)
-    city = models.CharField(max_length=100)
-    pincode = models.IntegerField(max_length=10)
+    door_no = models.CharField(max_length=100, default="")
+    street = models.CharField(max_length=100, default="")
+    city = models.CharField(max_length=100, default="")
+    pincode = models.IntegerField(max_length=10, default=0)
     
     def __str__(self) -> str:
         return self.transaction_id
