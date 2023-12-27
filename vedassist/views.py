@@ -340,25 +340,26 @@ def buy_view(request):
  
 def history_view(request):
     
-    transactions = Transaction.objects.filter(user=request.user)
-    
-    # order id, date, price, prod name
-    
-    orders = []
-    
-    for order in transactions:
-        if order.medicine is not None:
-            orders.append({
-                "order_id": order.transaction_id,
-                "date": order.transaction_date,
-                "price": order.transaction_amount,
-                "prod_name": order.medicine.medicine_name,
-            })
-    
-    return JsonResponse({
-                "orders" : orders,
-        }, status=200)
-    
+    if request.method == "POST":
+        transactions = Transaction.objects.filter(user=request.POST.get('uname'))
+        
+        # order id, date, price, prod name
+        
+        orders = []
+        
+        for order in transactions:
+            if order.medicine is not None:
+                orders.append({
+                    "id": order.transaction_id,
+                    "date": order.transaction_date,
+                    "price": order.transaction_amount,
+                    "name": order.medicine.medicine_name,
+                })
+        
+        return JsonResponse({
+                    "orders" : orders,
+            }, status=200)
+        
     
     
 def generate_token_for_user(username):
