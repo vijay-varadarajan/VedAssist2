@@ -340,11 +340,26 @@ def buy_view(request):
  
 def history_view(request):
     
-    transactions = Transaction.objects.filter(user = request.user)
+    transactions = Transaction.objects.filter(user=request.user)
     
-    return render(request, "vedassist/history.html", {
-        "transactions": transactions,
-    })
+    # order id, date, price, prod name
+    
+    orders = []
+    
+    for order in transactions:
+        if order.medicine is not None:
+            orders.append({
+                "order_id": order.transaction_id,
+                "date": order.transaction_date,
+                "price": order.transaction_amount,
+                "prod_name": order.medicine.medicine_name,
+            })
+    
+    return JsonResponse({
+                "orders" : orders,
+        }, status=200)
+    
+    
     
 def generate_token_for_user(username):
     user = User.objects.get(username=username)
