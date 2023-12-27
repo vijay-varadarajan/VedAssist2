@@ -131,9 +131,9 @@ def activate(request, uidb64, token):
         user.is_active = True
         user.save()
 
-        return HttpResponseRedirect("http://localhost:3000/signin")
+        return HttpResponseRedirect("https://vedassist.onrender.com/signin")
     
-    return HttpResponseRedirect("http://localhost:3000/signin")
+    return HttpResponseRedirect("https://vedassist.onrender.com/signin")
 
     
 @csrf_exempt
