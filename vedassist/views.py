@@ -337,11 +337,13 @@ def buy_view(request):
         
         return JsonResponse({'message': 'Order confirmed!'}, status=200)
 
- 
+
+@csrf_exempt
 def history_view(request):
     
     if request.method == "POST":
-        transactions = Transaction.objects.filter(user=request.POST.get('uname'))
+        user = User.objects.get(username=request.POST.get('uname'))
+        transactions = Transaction.objects.filter(user=user)
         
         # order id, date, price, prod name
         
@@ -351,7 +353,7 @@ def history_view(request):
             if order.medicine is not None:
                 orders.append({
                     "id": order.transaction_id,
-                    "date": order.transaction_date,
+                    "date": str(order.transaction_date)[:11],
                     "price": order.transaction_amount,
                     "name": order.medicine.medicine_name,
                 })
