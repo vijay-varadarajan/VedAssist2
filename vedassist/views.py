@@ -19,7 +19,6 @@ from django.contrib.auth.models import User
 from django.contrib.auth.tokens import default_token_generator
 from django.utils.encoding import force_bytes
 from django.utils.http import urlsafe_base64_encode
-import secrets
 from .tokens import account_activation_token
 
 from .models import User, Medicine, Transaction
@@ -32,18 +31,17 @@ def index(request):
     return render(request, "vedassist/index.html", {
         "user": request.user, 
     })
+    
 @csrf_exempt
 def login_view(request):
     if request.method == "POST":
         # Attempt to sign user in
-        username = request.POST["username"] # username is the name of the input field in the login form
-        password = request.POST["password"] # password is the name of the input field in the login form
-        
-        print(username, password)
+        username = request.POST["username"]
+        password = request.POST["password"]
+
 
         user = authenticate(request, username=username, password=password) # authenticate() returns a User object if the credentials are valid for a backend. If not, it returns None.
         
-        print(user)
         # If user is authenticated, login and route to index
         if user is not None:
             user_token = generate_token_for_user(username)
@@ -78,7 +76,7 @@ def register_view(request):
         email = request.POST["email"]
         password = request.POST["password"]
         confirmation = request.POST["confirm_password"] 
-        print("Confirmed")
+
         
         if password != confirmation:
             return JsonResponse({"message": "Password mismatch"} , status = 443)
@@ -133,11 +131,9 @@ def activate(request, uidb64, token):
         user.is_active = True
         user.save()
 
-        messages.success(request, "Account activated successfully!")
-        return HttpResponseRedirect(reverse("login"))
+        return HttpResponseRedirect("http://localhost:3000/signin")
     
-    messages.error(request, "Activation link expired!")
-    return HttpResponseRedirect(reverse("login"))
+    return HttpResponseRedirect("http://localhost:3000/signin")
 
     
 @csrf_exempt
@@ -169,10 +165,8 @@ def predict_view(request):
         
         # get medicine details from database
         medicines = [medicine.strip() for medicine in medicines]
-        print(medicines)
         
         medicine_details = Medicine.objects.filter(medicine_name__in=medicines)
-        print(medicine_details)
         
         if len(medicine_details) == 2:
             
@@ -221,6 +215,7 @@ def predict_view(request):
         
     return render(request, "vedassist/predict.html")
 
+
 @csrf_exempt
 def model_predict(user_input):
 
@@ -268,6 +263,7 @@ def shop_view(request):
                 "medicines" : medicines,
             }, status=200)
 
+
 @csrf_exempt
 def search_view(request):
     searchText = ""
@@ -277,14 +273,11 @@ def search_view(request):
         data = request.POST
         searchText = data.get('searchText')
         searchText = searchText.capitalize()
-        print(searchText)
         items = Medicine.objects.filter(medicine_name__icontains = searchText)
         
-    print(items) 
     medicines = []   
     if items != []:
         for item in items:
-            print(item)
             medicines.append({
                                 "name": item.medicine_name,
                                 "description": item.medicine_description,
@@ -307,8 +300,6 @@ def buy_view(request):
     
     if request.method == "POST":
         data = request.POST
-        
-        print(data.get('uname'))
         
         item = Medicine.objects.get(medicine_name=data.get('prodName'))
         user = User.objects.get(username=data.get('uname'))
@@ -340,7 +331,7 @@ def buy_view(request):
 
 @csrf_exempt
 def history_view(request):
-    
+        
     if request.method == "POST":
         user = User.objects.get(username=request.POST.get('uname'))
         transactions = Transaction.objects.filter(user=user)
