@@ -13,7 +13,6 @@ urlpatterns = [
     path("predict", views.predict_view, name='predict'),
     path("shop", views.shop_view, name='shop'),
     path("shop/search", views.search_view, name='search'),
-    path("session", views.get_session_token, name='sessions'),
     path("buy/<medicine_name>/", views.buy_view, name='buy'),
     path("history", views.history_view, name='history'),
 ]

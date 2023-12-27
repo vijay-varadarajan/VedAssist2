@@ -86,7 +86,7 @@ def register_view(request):
         # Attempt to create new user
         try:
              # type: ignore # create_user() returns a User object
-            user = User.objects.create_user(username=username, email=email ,password=password, is_active=False)     
+            user = User.objects.create_user(username=username, email=email ,password=password, is_active=False)      # type: ignore
             try:
                 activateEmail(request, user, email)
                 
@@ -271,6 +271,7 @@ def shop_view(request):
 @csrf_exempt
 def search_view(request):
     searchText = ""
+    items = []
     
     if request.method == "POST":
         data = request.POST
@@ -311,12 +312,21 @@ def buy_view(request, medicine_name):
         user = request.user
         transaction_id = f"{datetime.datetime.now()}{item.medicine_name}{item.medicine_price}{random.randint(1000, 9999)}"
         
+        door_no = request.POST.get('door_no')
+        street = request.POST.get('street')
+        city = request.POST.get('city')
+        pincode = request.POST.get('pincode')
+        
         Transaction.objects.create(
             user=user,
             medicine=item,
             transaction_id=transaction_id,
             transaction_amount=item.medicine_price,
-            transaction_status=True
+            transaction_status=True,
+            door_no=door_no,
+            street=street,
+            city=city,
+            pincode=pincode,
         )
         
         item.medicine_view_count += 1
@@ -338,6 +348,7 @@ def history_view(request):
     return render(request, "vedassist/history.html", {
         "transactions": transactions,
     })
+    
 def generate_token_for_user(username):
     user = User.objects.get(username=username)
     token = default_token_generator.make_token(user)
