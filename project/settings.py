@@ -32,7 +32,7 @@ SECRET_KEY = env('SECRET_KEY')
 DEBUG = False
 ALLOWED_HOSTS=['*']
 CORS_ALLOWED_ORIGINS = [
-    "https://ved-assist.vercel.app/",
+    "https://ved-assist.vercel.app",
     "https://ved-assist.onrender.com/",
 ]
 # CORS_ALLOW_ALL_ORIGINS=True
