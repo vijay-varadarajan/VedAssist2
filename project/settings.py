@@ -34,6 +34,7 @@ ALLOWED_HOSTS=['*']
 CORS_ALLOWED_ORIGINS = [
     "https://ved-assist.vercel.app",
     "https://ved-assist.onrender.com/",
+    "https://ved-assist-m1vd5v1z5-gokulanithanandakumars-projects.vercel.app/",
 ]
 # CORS_ALLOW_ALL_ORIGINS=True
 
