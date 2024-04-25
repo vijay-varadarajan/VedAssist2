@@ -131,9 +131,9 @@ def activate(request, uidb64, token):
         user.is_active = True
         user.save()
 
-        return HttpResponseRedirect("https://vedassist.onrender.com/signin")
+        return HttpResponseRedirect("https://ved-assist.vercel.app/shop")
     
-    return HttpResponseRedirect("https://vedassist.onrender.com/signin")
+    return HttpResponseRedirect("https://ved-assist.vercel.app/signin")
 
     
 @csrf_exempt
