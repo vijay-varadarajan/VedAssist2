@@ -1,21 +1,28 @@
 # VedAssist 2.0
 
-by **Vijay Varadarajan**,
-from VIT University, Vellore, India.
+### by [Vijay Varadarajan](https://github.com/vijay-varadarajan)
+### with [Kurapati Goutham](https://github.com/gouthamKurapati13), [Gokul](https://github.com/GokulAnithaNandakumar) and [Amrit Sundarka](https://github.com/Amrit02102004)
+### from TamilNadu, India
 
-Video demo: 
-
-Github Repo link: [VedAssist-Source](https://github.com/vijay-varadarajan/VedAssist2/)
+#### Website: [VedAssist-site](https://ved-assist.vercel.app/)
+#### Video demo: [VetConnect-video_demo](https://ved-assist.vercel.app/)
+#### Github repo link: [VetConnect-source_code](https://github.com/vijay-varadarajan/VedAssist2)
 
 <p align=center>
 <img src="readme_images\vedassist_home_design.png" alt="Home page image" width=390px height=200px>
 </p>
 
+This repository contains the backend for this web application with a dummy frontend. The actual frontend is available at [Vedassist-Frontend](https://github.com/GokulAnithaNandakumar/Ved-Assist), made using react.
+
 ## About this project
 
 **VedAssist 2.0** is a Django web application designed to provide assistance for users seeking quick information on Ayurvedic medicines. 
 
-This consists of a user-friendly web application that offers features such as a **symptom-based medicine recommendation system** and a **virtual Ayurvedic medicine store**.
+This is a user-friendly web application that offers features such as a **symptom-based medicine recommendation system** and a **virtual Ayurvedic medicine store**.
+
+This application allows users to get predictions of ayurvedic medicines based on their symptoms and general details like age, gender and weight. Then, the suggested medicines can be directly looked up at the shop and can be purchased (simulation of purchase). 
+
+To purchase, the user must signup / login. The shop consists of all available ayurvedic medicines with description and prices. Users can search for medicines based on the name, description or price and purchase them virtually.
 
 ## Inspiration
 
