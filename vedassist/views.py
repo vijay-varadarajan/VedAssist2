@@ -356,12 +356,8 @@ def history_view(request):
         return JsonResponse({
                     "orders" : orders,
             }, status=200)
-    
-    user = request.user.uname
-    transactions = Transaction.objects.filter(user=user)
-    return render(request, "vedassist/history.html", {
-        "transactions": transactions,
-    })
+        
+    return render(request, "vedassist/history.html")
     
     
 def generate_token_for_user(username):
