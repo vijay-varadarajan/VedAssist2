@@ -33,7 +33,7 @@ class Transaction(models.Model):
     door_no = models.CharField(max_length=100, default="")
     street = models.CharField(max_length=100, default="")
     city = models.CharField(max_length=100, default="")
-    pincode = models.IntegerField(max_length=10, default=0)
+    pincode = models.IntegerField(default=0)
     
     def __str__(self) -> str:
         return self.transaction_id

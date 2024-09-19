@@ -61,7 +61,7 @@ def login_view(request):
                 return JsonResponse({"message" : "User Doesnt Exist"} , status = 442)
 
   
-        
+    return render(request, "vedassist/login.html")
     
 
 def logout_view(request):
@@ -101,7 +101,7 @@ def register_view(request):
             return JsonResponse({"message" : "User already exist"} , status = 444)
         
             
-        
+    return render(request, "vedassist/register.html")
     
 
 def activateEmail(request, user, to_email):
@@ -215,11 +215,13 @@ def predict_view(request):
         
     return render(request, "vedassist/predict.html")
 
+import pickle
 
 @csrf_exempt
 def model_predict(user_input):
 
-    classifier = joblib.load('vedassist/model.pkl')
+    classifier = joblib.load("vedassist/model.pkl")
+    print(type(classifier))
     
     # sourcery skip: inline-immediately-returned-variable
     user_input = user_input.split(',')
@@ -327,6 +329,8 @@ def buy_view(request):
         item.save()  # Save the changes to the item object
         
         return JsonResponse({'message': 'Order confirmed!'}, status=200)
+    
+    return render(request, "vedassist/buy.html")
 
 
 @csrf_exempt
@@ -352,7 +356,12 @@ def history_view(request):
         return JsonResponse({
                     "orders" : orders,
             }, status=200)
-        
+    
+    user = request.user.uname
+    transactions = Transaction.objects.filter(user=user)
+    return render(request, "vedassist/history.html", {
+        "transactions": transactions,
+    })
     
     
 def generate_token_for_user(username):

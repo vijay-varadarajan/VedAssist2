@@ -5,7 +5,7 @@ from . import views
 
 urlpatterns = [
     path("", views.index, name='index'), 
-    path("admin", admin.site.urls),   
+    path("admin", admin.site.urls),
     path("login", views.login_view, name='login'),
     path("register", views.register_view, name='register'),
     path("activate/<uidb64>/<token>/", views.activate, name="activate"),
