@@ -1,7 +1,7 @@
 # VedAssist 2.0
 
 ### by [Vijay Varadarajan](https://github.com/vijay-varadarajan)
-### with [Kurapati Goutham](https://github.com/gouthamKurapati13), [Gokul](https://github.com/GokulAnithaNandakumar) and [Amrit Sundarka](https://github.com/Amrit02102004)
+### with [Ayush Mishra](https://github.com/Ayush-07-Mishra), [Kurapati Goutham](https://github.com/gouthamKurapati13), [Gokul](https://github.com/GokulAnithaNandakumar) and [Amrit Sundarka](https://github.com/Amrit02102004)
 ### from TamilNadu, India
 
 #### Website: [VedAssist-site](https://ved-assist.vercel.app/)
